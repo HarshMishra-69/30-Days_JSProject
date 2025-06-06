@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const inputBox = document.getElementById("input-box");
     const listContainer = document.getElementById("list-container");
+    const addButton = document.getElementById("add-button");
     const themeSwitch = document.getElementById("theme-switch");
     const filterButtons = document.querySelectorAll(".filter-btn");
     const clearCompletedBtn = document.getElementById("clear-completed");
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Add task
+    // Add task function
     function addTask() {
         if (inputBox.value.trim() === "") {
             showNotification("Please enter a task");
@@ -60,6 +61,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // Scroll to the new task
         li.scrollIntoView({ behavior: 'smooth' });
     }
+    
+    // Add button event listener
+    addButton.addEventListener("click", addTask);
+    
+    // Enter key event listener
+    inputBox.addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+            addTask();
+        }
+    });
     
     // Handle task clicks
     listContainer.addEventListener("click", function(e) {
@@ -151,7 +162,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function startTimer() {
-        if (isTimerRunning) return;
+        if (isTimerRunning) {
+            pauseTimer();
+            return;
+        }
         
         isTimerRunning = true;
         startTimerBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
@@ -192,12 +206,21 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function resetTimer() {
         pauseTimer();
+        const activeTimerBtn = document.querySelector(".timer-btn.active");
+        if (activeTimerBtn) {
+            const minutes = parseInt(activeTimerBtn.getAttribute("data-time"));
+            timeLeft = minutes * 60;
+        } else {
+            timeLeft = 25 * 60; // Default to 25 minutes
+        }
         updateTimerDisplay();
     }
     
     // Timer controls
     timerButtons.forEach(button => {
         button.addEventListener('click', function() {
+            timerButtons.forEach(btn => btn.classList.remove("active"));
+            this.classList.add("active");
             const minutes = parseInt(this.getAttribute("data-time"));
             timeLeft = minutes * 60;
             updateTimerDisplay();
@@ -205,14 +228,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    startTimerBtn.addEventListener('click', function() {
-        if (isTimerRunning) {
-            pauseTimer();
-        } else {
-            startTimer();
-        }
-    });
+    // Initialize the first timer button as active by default
+    if (timerButtons.length > 0) {
+        timerButtons[0].classList.add("active");
+    }
     
+    startTimerBtn.addEventListener('click', startTimer);
     resetTimerBtn.addEventListener('click', resetTimer);
     
     // Load pomodoro sessions
@@ -234,13 +255,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
     
-    // Add task on Enter key
-    inputBox.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            addTask();
-        }
-    });
-    
     // Add fade-out animation to CSS
     const style = document.createElement('style');
     style.textContent = `
@@ -256,4 +270,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
-});;
+});

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Pro | To-Do List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="todo-app">
+            <div class="app-header">
+                <h2><i class="fas fa-tasks"></i> Productivity Pro</h2>
+                <div class="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-switch">
+                        <span class="slider round"></span>
+                    </label>
+                    <i class="fas fa-moon"></i>
+                </div>
+            </div>
+            
+            <div class="row">
+                <input type="text" id="input-box" placeholder="Add a new task...">
+                <button onclick="addTask()"><i class="fas fa-plus"></i> ADD</button>
+            </div>
+            
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="active">Active</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+            </div>
+            
+            <ul id="list-container"></ul>
+            
+            <div class="stats">
+                <span id="task-count">0 tasks left</span>
+                <button id="clear-completed">Clear Completed</button>
+            </div>
+            
+            <div class="timer-container">
+                <h3><i class="fas fa-clock"></i> Pomodoro Timer</h3>
+                <div class="timer-controls">
+                    <button class="timer-btn" data-time="25">Work (25m)</button>
+                    <button class="timer-btn" data-time="5">Short Break (5m)</button>
+                    <button class="timer-btn" data-time="15">Long Break (15m)</button>
+                </div>
+                <div id="timer-display">25:00</div>
+                <div class="timer-actions">
+                    <button id="start-timer"><i class="fas fa-play"></i> Start</button>
+                    <button id="reset-timer"><i class="fas fa-redo"></i> Reset</button>
+                </div>
+                <div class="pomodoro-count">
+                    <span id="pomodoro-sessions">0</span> Pomodoro sessions completed
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification"></div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

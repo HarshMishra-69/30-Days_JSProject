@@ -1,0 +1,163 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orbitron', sans-serif;
+}
+
+body {
+    background: #0a0a0a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Add these glowing dots in the background */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(0, 255, 255, 0.1) 0%, transparent 50%);
+    z-index: -1;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+.calculator {
+    background: rgba(10, 10, 20, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.3),
+        0 0 40px rgba(255, 0, 255, 0.2),
+        inset 0 0 10px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.calculator form input {
+    border: none;
+    outline: none;
+    width: 70px;
+    height: 70px;
+    margin: 8px;
+    border-radius: 12px;
+    background: rgba(20, 20, 30, 0.8);
+    color: #fff;
+    font-size: 24px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 5px 15px rgba(0, 0, 0, 0.3),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Neon glow effect on hover */
+.calculator form input:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 8px 25px rgba(0, 255, 255, 0.4),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+/* Button press effect */
+.calculator form input:active {
+    transform: translateY(1px);
+    box-shadow: 
+        0 2px 10px rgba(0, 255, 255, 0.6),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Display styling */
+form .display {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    box-shadow: 
+        inset 0 0 10px rgba(0, 255, 255, 0.2),
+        0 0 10px rgba(255, 0, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+form .display input {
+    text-align: right;
+    flex: 1;
+    font-size: 48px;
+    box-shadow: none;
+    background: transparent;
+    color: #0ff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    font-weight: 400;
+}
+
+/* Equal button styling */
+form input.equal {
+    width: 150px;
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    color: #000;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    box-shadow: 
+        0 0 15px rgba(255, 0, 255, 0.6),
+        0 0 30px rgba(0, 255, 255, 0.4);
+}
+
+/* Operator buttons */
+form input[value="/"],
+form input[value="*"],
+form input[value="-"],
+form input[value="+"] {
+    color: #ff00ff;
+    text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+}
+
+/* Special buttons */
+form input[value="AC"],
+form input[value="DE"] {
+    color: #ff5555;
+    text-shadow: 0 0 5px rgba(255, 85, 85, 0.5);
+}
+
+/* Number buttons */
+form input[value="0"],
+form input[value="1"],
+form input[value="2"],
+form input[value="3"],
+form input[value="4"],
+form input[value="5"],
+form input[value="6"],
+form input[value="7"],
+form input[value="8"],
+form input[value="9"],
+form input[value="00"],
+form input[value="."] {
+    color: #0ff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+}
+
+/* Add pulsing animation to equal button */
+@keyframes pulse {
+    0% { box-shadow: 0 0 15px rgba(255, 0, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(255, 0, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.6); }
+    100% { box-shadow: 0 0 15px rgba(255, 0, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.4); }
+}
+
+form input.equal {
+    animation: pulse 2s infinite;
+}
